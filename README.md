@@ -1,5 +1,5 @@
 # jsf-icefaces-agenda
-Aplicativo JSF que faz o controle de uma agenda, usando requisições ajax (icefaces)
+Aplicativo JSF que faz o controle de uma agenda, usando requisições ajax (icefaces). Ocorreram alguns erros com a versão 3.3 do icefaces, a versão 4.1.1 foi só adicionar as libs e não deu mais erros, usando o JSF Mojarra 2.2.1
 
 Para alterar o BD, veja o arquivo em `src/hibernate.cfg.xml`
 
