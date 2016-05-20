@@ -5,7 +5,7 @@ Para alterar o BD, veja o arquivo em `src/hibernate.cfg.xml`
 
 Libs adicionadas manualmente:
 
-* ICEfaces-4.1.1-bin
+* ICEfaces-4.1.1-bin - API: http://www.icesoft.org/wiki/display/ICE/API+Documentation - Demos: http://www.icesoft.org/java/demos/icefaces-demos.jsf
  * lib/icefaces.jar
  * lib/icefaces-ace.jar
 
