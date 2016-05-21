@@ -20,7 +20,7 @@
     <h1>Agenda Eletrônica</h1>
 
     <h3>Inserir contato</h3>
-    <h:form >
+    <h:form>
         <label>Nome:* </label>
         <h:inputText value="#{indexBean.contato.nome}" required="true" id="nome"/>
         <label class="error"><h:message for="nome" /></label>
@@ -46,10 +46,60 @@
         <h:commandButton value="Cadastrar" action="#{indexBean.insert}"/>
     </h:form>
 
-    <br /><br />
+    <br />
 
     <ace:panel>
         <h:outputText value="#{indexBean.msg}"/>
     </ace:panel>
+
+    <hr />
+
+    <h3>Listagem contatos</h3>
+    <h:form>
+        <label>Buscar (nome ou e-mail): </label>
+        <ace:textEntry value="#{indexBean.searchStr}">
+            <ace:ajax event="charCount" />
+        </ace:textEntry>
+    </h:form>
+
+    <h:dataTable value="#{indexBean.listaContato}" var="lista">
+        <h:column>
+            <f:facet name="header">
+                ID
+            </f:facet>
+            <h:outputText value="#{lista.id}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                NOME
+            </f:facet>
+            <h:outputText value="#{lista.nome}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                TELEFONE
+            </f:facet>
+            <h:outputText value="#{lista.telefone}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                E-MAIL
+            </f:facet>
+            <h:outputText value="#{lista.email}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                ENDEREÇO
+            </f:facet>
+            <h:outputText value="#{lista.endereco}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                DATA NASCIMENTO
+            </f:facet>
+            <h:outputText value="#{lista.nascimento}"/>
+        </h:column>
+    </h:dataTable>
+
 </h:body>
 </html>
