@@ -8,19 +8,48 @@
       xmlns:ace="http://www.icefaces.org/icefaces/components"
       xmlns:icecore="http://www.icefaces.org/icefaces/core">
 <h:head>
-    <title>Agenda</title>
+    <title>Agenda Eletrônica</title>
+    <h:outputStylesheet>
+        label.error{
+            color: red;
+        }
+    </h:outputStylesheet>
 </h:head>
 
 <h:body>
-    <h:outputLabel value="Hello, world"/>
-    <h:form>
-        <h:outputText value="input: "/>
-        <input id="i" type="text" name="test" value=""/>
+    <h1>Agenda Eletrônica</h1>
 
-        <icecore:defaultAction actionListener="#{indexBean.adicionar}" key="Enter" />
+    <h3>Inserir contato</h3>
+    <h:form >
+        <label>Nome:* </label>
+        <h:inputText value="#{indexBean.contato.nome}" required="true" id="nome"/>
+        <label class="error"><h:message for="nome" /></label>
+        <br /><br />
+
+        <label>Telefone:* </label>
+        <h:inputText value="#{indexBean.contato.telefone}" required="true" id="telefone"/>
+        <label class="error"><h:message for="telefone" /></label>
+        <br /><br />
+
+        <label>E-mail: </label>
+        <h:inputText value="#{indexBean.contato.email}" />
+        <br /><br />
+
+        <label>Endereço: </label>
+        <h:inputText value="#{indexBean.contato.endereco}" />
+        <br /><br />
+
+        <label>Data Nascimento: </label>
+        <h:inputText value="#{indexBean.contato.nascimento}" />
+        <br /><br />
+
+        <h:commandButton value="Cadastrar" action="#{indexBean.insert}"/>
     </h:form>
+
+    <br /><br />
+
     <ace:panel>
-        <h:outputText id="valueOut" value="#{indexBean.valor}"/>
+        <h:outputText value="#{indexBean.msg}"/>
     </ace:panel>
 </h:body>
 </html>
