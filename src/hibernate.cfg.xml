@@ -24,7 +24,7 @@
 
 
         <!-- My mapping classes -->
-
+        <mapping class="model.Contato"/>
 
 
     </session-factory>
