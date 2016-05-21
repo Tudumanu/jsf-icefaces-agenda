@@ -28,6 +28,7 @@ public class IndexBean {
         System.out.println("IndexBean");
 
         contatoDAO = new ContatoDAO();
+        listaContatoCompleta = new ArrayList();
         init();
     }
 
@@ -41,28 +42,31 @@ public class IndexBean {
         listaContato = contatoDAO.search(searchStr);
 
         //lista usada para editar ou excluir um contato
-        listaContatoCompleta = new ArrayList();
+        listaContatoCompleta.clear();
         for (int i = 0; i < listaContato.size(); i++) {
             listaContatoCompleta.add(new SelectItem(listaContato.get(i).getId(), listaContato.get(i).getNome()));
         }
 
         //elemento selecionado no selectMenu
-        contatoSelecionado = listaContato.get(0);
-        if (contatoSelecionado == null)
+        if (listaContato.size() > 0) {
+            Contato tmp = listaContato.get(0);
             contatoSelecionado = new Contato();
-
+            contatoSelecionado.setId(tmp.getId());
+            contatoSelecionado.setNome(tmp.getNome());
+            contatoSelecionado.setTelefone(tmp.getTelefone());
+            contatoSelecionado.setEmail(tmp.getEmail());
+            contatoSelecionado.setEndereco(tmp.getEndereco());
+            contatoSelecionado.setNascimento(tmp.getNascimento());
+        } else
+            contatoSelecionado = new Contato();
     }
 
     public void contatoSelectAlterado(ValueChangeEvent event){
-        System.out.println("contatoSelectAlterado");
+        System.out.println("contatoSelectAlterado "+ event.getNewValue());
 
         if(event.getNewValue() != null) {
-            System.out.println(event.getNewValue());
-
             int id = Integer.parseInt(event.getNewValue().toString());
             contatoSelecionado = contatoDAO.show(id);
-            System.out.println(contatoSelecionado.getNome());
-            //selNome.setValue(endSelecionado.getNome());
         }
     }
 
@@ -78,10 +82,29 @@ public class IndexBean {
 
     public void update() {
         System.out.println("update");
+
+        if (contatoSelecionado.getId() > 0) {
+            editMsg = contatoDAO.update(contatoSelecionado) ?
+                    contatoSelecionado.getNome() + " Atualizado com sucesso!"
+                    : "Ocorreu um erro ao atualizar.";
+
+            init(); //atualiza listagem, zera campos contato
+        } else
+            editMsg = "Necessita selecionar um contato!!!";
+
     }
 
     public void delete() {
         System.out.println("delete");
+
+        if (contatoSelecionado.getId() > 0) {
+            editMsg = contatoDAO.delete(contatoSelecionado) ?
+                    contatoSelecionado.getNome() + " Removido com sucesso!"
+                    : "Ocorreu um erro ao remover.";
+
+            init(); //atualiza listagem, zera campos contato
+        } else
+            editMsg = "Necessita selecionar um contato!!!";
     }
 
     // GETTERS AND SETTERS //

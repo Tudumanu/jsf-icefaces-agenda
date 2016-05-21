@@ -59,11 +59,43 @@
         <ace:selectMenu value="#{indexBean.contatoSelecionado.id}"
                         valueChangeListener="#{indexBean.contatoSelectAlterado}"
                         label="Selecione o contato: "
-                        labelPosition="top">
+                        labelPosition="top"
+                        id="selectContato">
             <f:selectItems value="#{indexBean.listaContatoCompleta}" />
             <ace:ajax execute="@this" render="@all" />
         </ace:selectMenu>
+        <label class="error"><h:message for="selectContato" /></label>
+        <br /><br />
+
+        <label>Nome:* </label>
+        <h:inputText value="#{indexBean.contatoSelecionado.nome}" required="true" id="nomeEdit"/>
+        <label class="error"><h:message for="nomeEdit" /></label>
+        <br /><br />
+
+        <label>Telefone:* </label>
+        <h:inputText value="#{indexBean.contatoSelecionado.telefone}" required="true" id="telefoneEdit"/>
+        <label class="error"><h:message for="telefoneEdit" /></label>
+        <br /><br />
+
+        <label>E-mail: </label>
+        <h:inputText value="#{indexBean.contatoSelecionado.email}" />
+        <br /><br />
+
+        <label>Endereço: </label>
+        <h:inputText value="#{indexBean.contatoSelecionado.endereco}" />
+        <br /><br />
+
+        <label>Data Nascimento: </label>
+        <h:inputText value="#{indexBean.contatoSelecionado.nascimento}" />
+        <br /><br />
+
+        <h:inputHidden value="#{indexBean.contatoSelecionado.id}" />
+
+        <h:commandButton value="Atualizar" action="#{indexBean.update}"/>
+        <h:commandButton value="Remover" action="#{indexBean.delete}"/>
     </h:form>
+
+    <br />
 
     <ace:panel>
         <h:outputText value="#{indexBean.editMsg}"/>
