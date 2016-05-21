@@ -5,6 +5,9 @@ import model.Contato;
 
 import javax.faces.bean.CustomScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
@@ -12,11 +15,14 @@ import java.util.List;
 public class IndexBean {
 
     private String msg;
+    private String editMsg;
     private String searchStr;
     private Contato contato;
     private ContatoDAO contatoDAO;
     private List<Contato> listaContato;
+    private ArrayList listaContatoCompleta;
 
+    private Contato contatoSelecionado;
 
     public IndexBean() {
         System.out.println("IndexBean");
@@ -29,8 +35,35 @@ public class IndexBean {
         System.out.println("init");
 
         contato = new Contato();
+
+        //string de busca e listagem dos contatos
         searchStr = "";
         listaContato = contatoDAO.search(searchStr);
+
+        //lista usada para editar ou excluir um contato
+        listaContatoCompleta = new ArrayList();
+        for (int i = 0; i < listaContato.size(); i++) {
+            listaContatoCompleta.add(new SelectItem(listaContato.get(i).getId(), listaContato.get(i).getNome()));
+        }
+
+        //elemento selecionado no selectMenu
+        contatoSelecionado = listaContato.get(0);
+        if (contatoSelecionado == null)
+            contatoSelecionado = new Contato();
+
+    }
+
+    public void contatoSelectAlterado(ValueChangeEvent event){
+        System.out.println("contatoSelectAlterado");
+
+        if(event.getNewValue() != null) {
+            System.out.println(event.getNewValue());
+
+            int id = Integer.parseInt(event.getNewValue().toString());
+            contatoSelecionado = contatoDAO.show(id);
+            System.out.println(contatoSelecionado.getNome());
+            //selNome.setValue(endSelecionado.getNome());
+        }
     }
 
     public void insert() {
@@ -78,4 +111,21 @@ public class IndexBean {
         this.searchStr = searchStr;
         listaContato = contatoDAO.search(searchStr);
     }
+
+    public Contato getContatoSelecionado() {
+        return contatoSelecionado;
+    }
+
+    public void setContatoSelecionado(Contato contatoSelecionado) {
+        this.contatoSelecionado = contatoSelecionado;
+    }
+
+    public List<Contato> getListaContatoCompleta() {
+        return listaContatoCompleta;
+    }
+
+    public String getEditMsg() {
+        return editMsg;
+    }
+
 }

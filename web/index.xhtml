@@ -52,6 +52,23 @@
         <h:outputText value="#{indexBean.msg}"/>
     </ace:panel>
 
+    <br />
+
+    <h3>Editar contato</h3>
+    <h:form>
+        <ace:selectMenu value="#{indexBean.contatoSelecionado.id}"
+                        valueChangeListener="#{indexBean.contatoSelectAlterado}"
+                        label="Selecione o contato: "
+                        labelPosition="top">
+            <f:selectItems value="#{indexBean.listaContatoCompleta}" />
+            <ace:ajax execute="@this" render="@all" />
+        </ace:selectMenu>
+    </h:form>
+
+    <ace:panel>
+        <h:outputText value="#{indexBean.editMsg}"/>
+    </ace:panel>
+
     <hr />
 
     <h3>Listagem contatos</h3>
